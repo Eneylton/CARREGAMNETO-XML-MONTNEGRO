@@ -4,6 +4,8 @@ $resultados = '';
 $resultados2 = '';
 $parcela = 0;
 $contador = 0;
+$ocultar = "";
+$ocultar2 = "";
 
 if (!empty($xml->NFe->infNFe->cobr->dup)) {
 
@@ -152,7 +154,19 @@ foreach($xml->NFe->infNFe->det as $item)
 $resultados2 = strlen($resultados2) ? $resultados2 : '<tr>
                                                <td colspan="14" class="text-center" > Nenhuma resultado encontrado !!!!! </td>
                                                </tr>';
-   
+
+if($chave != ""){
+$ocultar = 'class="card-body caixa-alta "';
+}else{
+$ocultar='class="card-body caixa-alta ocultar "';
+}
+
+if($chave != ""){
+$ocultar2 = 'class="card-body caixa-alta ocultar "';
+}else{
+$ocultar2='class="card-body caixa-alta "';
+}
+                                             
 
 ?>
 <section class="content">
@@ -162,7 +176,7 @@ $resultados2 = strlen($resultados2) ? $resultados2 : '<tr>
             <div class="card back-black">
                <div class="card-header">
                   <div class="modal-body">
-                     <form action="xml-list.php" method="post" enctype="multipart/form-data">
+                     <form id="form1" action="xml-list.php" method="post" enctype="multipart/form-data">
                         <div class="row">
 
                            <div class="col-4">
@@ -180,8 +194,8 @@ $resultados2 = strlen($resultados2) ? $resultados2 : '<tr>
                         </div>
                      </form>
                   </div>
-
-                  <div class="card-body caixa-alta ">
+                  <form id="form2" action="xml-insert.php" method="post" >
+                  <div <?= $ocultar ?>>
                      <div class="row">
 
                         <div class="col-12 info-nota"><span>DADOS DA NOTA FISCAL</span></div>
@@ -395,11 +409,29 @@ $resultados2 = strlen($resultados2) ? $resultados2 : '<tr>
 
                         </div>
 
+
+                        <div class="col-12">
+
+                           <button type="submit" class="btn btn-success float-right">SALVAR NOTA FISCAL</button>
+
+                        </div>
+
                      </div>
 
 
 
                   </div>
+
+                  <div <?= $ocultar2 ?>>
+                  <div class="col-12 centro altura-100">
+                  
+                  <img src="../../imgs/nota-fiscal.png" alt="" >
+                  </div>
+                  
+                  
+                  </div>
+
+                  </form>
 
                </div>
 
