@@ -1,27 +1,43 @@
 <?php
 
+$_SESSION['parcelas'] = array();
+$_SESSION['produtos'] = array();
+
 $resultados = '';
 $resultados2 = '';
 $parcela = 0;
 $contador = 0;
 $ocultar = "";
 $ocultar2 = "";
+$titulo2 ="";
 
 if (!empty($xml->NFe->infNFe->cobr->dup)) {
 
    foreach ($xml->NFe->infNFe->cobr->dup as $dup) {
 
       $parcela = number_format((float) $dup->vDup, 2, ",", ".");
-
-      $vencimento = $dup->dVenc;
+      $vencimento = strval($dup->dVenc);
+      $titulo2 = strval($dup->nDup);
 
       $resultados .= '<tr>
-            <td>' . $titulo = $dup->nDup . '</td>
+            <td>' . $titulo2. '</td>
             <td class="caixa-alta">' . date('d/m/Y', strtotime($vencimento)) . '</td>
             <td class="caixa-alta ">R$ ' . $parcela . '</td>
 
 
             </tr>';
+
+            array_push(
+               $_SESSION['parcelas'],
+           
+               array(
+           
+                 'parcela'                 =>  $parcela,
+                 'vencimento'              =>  $vencimento,
+                 'titulo'                  =>  $titulo2
+           
+               )
+             );
    }
 
    $resultados = strlen($resultados) ? $resultados : '<tr>
@@ -33,27 +49,27 @@ if (!empty($xml->NFe->infNFe->det)) {
 foreach($xml->NFe->infNFe->det as $item) 
 	{
 	   $contador += 1;
-		$codigo = $item->prod->cProd;
-		$xProd = $item->prod->xProd;
-		$NCM = $item->prod->NCM;
-		$CFOP = $item->prod->CFOP;
-		$uCom = $item->prod->uCom;
-		$qCom = $item->prod->qCom;
-		$qCom = number_format((double) $qCom, 2, ",", ".");
-		$vUnCom = $item->prod->vUnCom;
-		$vUnCom = number_format((double) $vUnCom, 2, ",", ".");
-		$vProd = $item->prod->vProd;
-		$vProd = number_format((double) $vProd, 2, ",", ".");	
-		$vBC_item = $item->imposto->ICMS->ICMS00->vBC;
-		$icms00 = $item->imposto->ICMS->ICMS00;
-		$icms10 = $item->imposto->ICMS->ICMS10;
-		$icms20 = $item->imposto->ICMS->ICMS20;
-		$icms30 = $item->imposto->ICMS->ICMS30;
-		$icms40 = $item->imposto->ICMS->ICMS40;
-		$icms50 = $item->imposto->ICMS->ICMS50;
-		$icms51 = $item->imposto->ICMS->ICMS51;
-		$icms60 = $item->imposto->ICMS->ICMS60;
-		$ICMSSN102 = $item->imposto->ICMS->ICMSSN102; 
+		$codigo       = strval($item->prod->cProd);
+		$xProd        = strval($item->prod->xProd);
+		$NCM          = strval($item->prod->NCM);
+		$CFOP         = strval($item->prod->CFOP);
+		$uCom         = strval($item->prod->uCom);
+		$qCom         = strval($item->prod->qCom);
+		$qCom         = number_format((double) $qCom, 2, ",", ".");
+		$vUnCom       = strval($item->prod->vUnCom);
+		$vUnCom       = number_format((double) $vUnCom, 2, ",", ".");
+		$vProd        = strval($item->prod->vProd);
+		$vProd        = number_format((double) $vProd, 2, ",", ".");	
+		$vBC_item     = $item->imposto->ICMS->ICMS00->vBC;
+		$icms00       = $item->imposto->ICMS->ICMS00;
+		$icms10       = $item->imposto->ICMS->ICMS10;
+		$icms20       = $item->imposto->ICMS->ICMS20;
+		$icms30       = $item->imposto->ICMS->ICMS30;
+		$icms40       = $item->imposto->ICMS->ICMS40;
+		$icms50       = $item->imposto->ICMS->ICMS50;
+		$icms51       = $item->imposto->ICMS->ICMS51;
+		$icms60       = $item->imposto->ICMS->ICMS60;
+		$ICMSSN102    = $item->imposto->ICMS->ICMSSN102; 
 		if(!empty($ICMSSN102)) 
 			{
 				$bc_icms = "0.00";	
@@ -108,7 +124,7 @@ foreach($xml->NFe->infNFe->det as $item)
 		if(!empty($icms60)) 
 		{
 			$bc_icms = "0,00";	
-			$pICMS = "0	";
+			$pICMS = "0";
 			$vlr_icms = "0,00";
 		}
 		$IPITrib = $item->imposto->IPI->IPITrib;
@@ -132,22 +148,42 @@ foreach($xml->NFe->infNFe->det as $item)
       $resultados2 .= '<tr>
 
       <td>' . $contador . '</td>
-      <td class="caixa-alta">  ' . $codigo . '</td>
-      <td class="caixa-alta "> ' . $xProd  . '</td>
-      <td class="caixa-alta "> ' . $NCM . '</td>
-      <td class="caixa-alta "> ' . $CFOP . '</td>
-      <td class="caixa-alta "> ' . $uCom . '</td>
-      <td class="caixa-alta "> ' . $qCom . '</td>
+      <td class="caixa-alta">  ' .   $codigo . '</td>
+      <td class="caixa-alta "> ' .   $xProd  . '</td>
+      <td class="caixa-alta "> ' .   $NCM . '</td>
+      <td class="caixa-alta "> ' .   $CFOP . '</td>
+      <td class="caixa-alta "> ' .   $uCom . '</td>
+      <td class="caixa-alta "> ' .   $qCom . '</td>
       <td class="caixa-alta ">R$ ' . $vUnCom . '</td>
       <td class="caixa-alta ">R$ ' . $vProd . '</td>
       <td class="caixa-alta ">R$ ' . $bc_icms . '</td>
       <td class="caixa-alta ">R$ ' . $vlr_icms  . '</td>
       <td class="caixa-alta ">R$ ' . $vlr_ipi . '</td>
-      <td class="caixa-alta "> ' . $pICMS . ' %</td>
-      <td class="caixa-alta "> ' . $perc_ipi. ' %</td>
-
-
+      <td class="caixa-alta "> ' .   $pICMS . ' %</td>
+      <td class="caixa-alta "> ' .   $perc_ipi. ' %</td>
       </tr>';
+
+      array_push(
+         $_SESSION['produtos'],
+     
+         array(
+     
+           'codigo'                 =>  $codigo,
+           'produto'                =>  $xProd,
+           'ncm'                    =>  $NCM,
+           'cfop'                   =>  $CFOP,
+           'un'                     =>  $uCom,
+           'qtd'                    =>  $qCom,
+           'valor_uni'              =>  $vUnCom,
+           'bc_icms'                =>  $vProd,
+           'valor_prod'             =>  $bc_icms,
+           'valor_icms'             =>  $vlr_icms,
+           'valor_ipi'              =>  $vlr_ipi,
+           'icms'                   =>  $pICMS,
+           'ipi'                    =>  $perc_ipi
+     
+         )
+       );
 }
 }
 
@@ -181,7 +217,7 @@ $ocultar2='class="card-body caixa-alta "';
 
                            <div class="col-4">
 
-                              <input type="file" name="arquivo" class="form-control" value="" id="imagem" name="arquivo" ">
+                              <input type="file" name="arquivo" class="form-control" value="" id="imagem" name="arquivo" >
                     
                           </div>
 

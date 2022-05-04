@@ -6,10 +6,7 @@ define('TITLE','Novo Usuário');
 define('BRAND','Cadastrar Usuário');
 
 use App\Entidy\Cargo;
-use   \App\Session\Login;
-
-$alertaLogin  = '';
-$alertaCadastro = '';
+use App\Session\Login;
 
 $usuariologado = Login:: getUsuarioLogado();
 
@@ -28,14 +25,3 @@ if(isset($_POST['nome'])){
         exit;
     }
   
-   
-
-
-
-
-include __DIR__.'../../../includes/layout/header.php';
-include __DIR__.'../../../includes/layout/top.php';
-include __DIR__.'../../../includes/layout/menu.php';
-include __DIR__.'../../../includes/layout/content.php';
-include __DIR__.'../../../includes/usuario/usuario-form-insert.php';
-include __DIR__.'../../../includes/layout/footer.php';
