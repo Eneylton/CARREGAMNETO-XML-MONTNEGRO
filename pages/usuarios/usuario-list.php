@@ -15,7 +15,7 @@ $listar = Usuario::getList('u.id as id,
 u.nome as nome,
 u.email as email,
 c.id as id_cargo,
-c.nome as cargo,
+c.descricao as cargo,
 a.id as id_acesso,
 a.nivel as acesso','usuarios AS u    
 INNER JOIN
@@ -23,7 +23,7 @@ cargos AS c ON (u.cargos_id = c.id)
 INNER JOIN
 acessos AS a ON (u.acessos_id = a.id)',null, 'u.nome ASC',null);
 
-$cargos = Cargo :: getList('*','cargos',null, 'nome ASC',null);
+$cargos = Cargo :: getList('*','cargos',null, 'descricao ASC',null);
 
 $acessos = Acesso :: getList('*','acessos',null, 'nivel ASC',null);
 

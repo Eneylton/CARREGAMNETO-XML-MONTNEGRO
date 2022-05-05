@@ -50,13 +50,13 @@ $acesso = $usuariologado['acessos_id'];
 
                                                         switch ($acesso) {
                                                           case '2':
-                                                            echo "none";
-                                                            break;
-                                                          case '3':
                                                             echo "";
                                                             break;
-                                                          case '4':
+                                                          case '3':
                                                             echo "none";
+                                                            break;
+                                                          case '4':
+                                                            echo "";
                                                             break;
 
                                                           default:
@@ -119,7 +119,7 @@ $acesso = $usuariologado['acessos_id'];
                                                         echo "";
                                                         break;
                                                       case '3':
-                                                        echo "";
+                                                        echo "none";
                                                         break;
                                                       case '4':
                                                         echo "";

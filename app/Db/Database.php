@@ -9,7 +9,7 @@ class Database
 {
 
     const HOST = 'localhost';
-    const NAME = 'db_ecommerce';
+    const NAME = 'db_estoque_montnegro';
     const USER = 'root';
     const PASS = '';
 

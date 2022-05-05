@@ -33,11 +33,7 @@ class Xml{
       
     }
 
-    public function setName(){
-
-        $this->name = $name;
-
-    }
+  
 
     public function gerarNovoNome(){
 

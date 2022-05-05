@@ -3,6 +3,52 @@
 $_SESSION['parcelas'] = array();
 $_SESSION['produtos'] = array();
 
+if (isset($_GET['status'])) {
+
+   switch ($_GET['status']) {
+      case 'success':
+         $icon  = 'success';
+         $title = 'Parabéns';
+         $text = 'ARQUIVO XML IMPORTADO COM SUCESSO !!!';
+         break;
+
+      case 'del':
+         $icon  = 'error';
+         $title = 'Parabéns';
+         $text = 'Esse usuário foi excluido !!!';
+         break;
+
+      case 'edit':
+         $icon  = 'warning';
+         $title = 'Parabéns';
+         $text = 'Cadastro atualizado com sucesso !!!';
+         break;
+
+
+      default:
+         $icon  = 'error';
+         $title = 'Opss !!!';
+         $text = 'Algo deu errado entre em contato com admin !!!';
+         break;
+   }
+
+   function alerta($icon, $title, $text)
+   {
+      echo "<script type='text/javascript'>
+      Swal.fire({
+        type:'type',  
+        icon: '$icon',
+        title: '$title',
+        text: '$text'
+       
+      }) 
+      </script>";
+   }
+
+   alerta($icon, $title, $text);
+}
+
+
 $resultados = '';
 $resultados2 = '';
 $parcela = 0;
@@ -215,7 +261,7 @@ $ocultar2='class="card-body caixa-alta "';
                      <form id="form1" action="xml-list.php" method="post" enctype="multipart/form-data">
                         <div class="row">
 
-                           <div class="col-4">
+                           <div class="col-6">
 
                               <input type="file" name="arquivo" class="form-control" value="" id="imagem" name="arquivo" >
                     
@@ -231,27 +277,33 @@ $ocultar2='class="card-body caixa-alta "';
                      </form>
                   </div>
                   <form id="form2" action="xml-insert.php" method="post" >
-                  <div <?= $ocultar ?>>
-                     <div class="row">
-
-                        <div class="col-12 info-nota"><span>DADOS DA NOTA FISCAL</span></div>
-
-                        <div class="col-4">
-                           </br>
-                           <div class="form-group">
-                              <label>Chave de Acesso da NFE </label>
-                              <p>
-                                 <span class="amarelo"><?php echo $chave ?></span>
-                           </div>
-
-                        </div>
-
-                        <div class="col-2">
-                           </br>
-                           <div class="form-group">
-                              <label>Prot. Autorização de uso</label>
-                              <p>
-                                 <span class="amarelo"><?php echo $nProt ?></span>
+                     
+                     
+                     
+                     
+                     <div <?= $ocultar ?>>
+                        <div class="row">
+                           
+                           <div class="col-12 info-nota"><span>DADOS DA NOTA FISCAL</span></div>
+                           
+                           <div class="col-4">
+                              </br>
+                              <div class="form-group">
+                                 <label>Chave de Acesso da NFE </label>
+                                 <p>
+                                    <span class="amarelo"><?php echo $chave ?></span>
+                                    <input type="hidden" value="<?php echo $chave ?>" name="chave">
+                                 </div>
+                                 
+                              </div>
+                              
+                              <div class="col-2">
+                                 </br>
+                                 <div class="form-group">
+                                    <label>Prot. Autorização de uso</label>
+                                    <p>
+                                       <span class="amarelo"><?php echo $nProt ?></span>
+                                       <input type="hidden" value="<?php echo $nProt ?>" name="autorizacao">
                            </div>
                         </div>
                         <div class="col-2">
@@ -260,6 +312,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Nº da Nota Fiscal</label>
                               <p>
                                  <span class="amarelo"><?php echo $nNF ?></span>
+                                 <input type="hidden" value="<?php echo $nNF ?>" name="notaFiscal">
                            </div>
                         </div>
                         <div class="col-2">
@@ -268,6 +321,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Série</label>
                               <p>
                                  <span class="amarelo"><?php echo $serie ?><span>
+                                 <input type="hidden" value="<?php echo $serie ?>" name="serie">
                            </div>
                         </div>
                      </div>
@@ -280,6 +334,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Nome / Razão Social</label>
                               <p>
                                  <span class="amarelo"><?php echo $emit_xNome ?></span>
+                                 <input type="hidden" value="<?php echo $emit_xNome ?>" name="razaoSocial">
                            </div>
 
                         </div>
@@ -290,6 +345,8 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>CNPJ / CPF</label>
                               <p>
                                  <span class="amarelo"><?php echo $emit_CNPJ  ?></span>
+                                 <input type="hidden" value="<?php echo $emit_CNPJ ?>" name="cnpj">
+                                 
                            </div>
                         </div>
                         <div class="col-4">
@@ -298,6 +355,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Inscrio Estadual</label>
                               <p>
                                  <span class="amarelo"><?php echo $emit_IE ?></span>
+                                 <input type="hidden" value="<?php echo $emit_IE ?>" name="InscricaoEstadual">
                            </div>
                         </div>
 
@@ -312,6 +370,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>BC do ICMS</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vBC ?></span>
+                                 <input type="hidden" value="<?php echo $vBC ?>" name="Bcicms">
                            </div>
 
                         </div>
@@ -322,6 +381,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Valor do ICMS</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vICMS  ?></span>
+                                 <input type="hidden" value="<?php echo $vICMS ?>" name="valorIcms">
                            </div>
                         </div>
                         <div class="col-2">
@@ -330,6 +390,8 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>BC ICMS ST</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vBCST ?></span>
+                                 <input type="hidden" value="<?php echo $vBCST ?>" name="bcicmsst">
+                                 
                            </div>
                         </div>
                         <div class="col-2">
@@ -338,6 +400,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Valor do ICMS ST</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vST ?></span>
+                                 <input type="hidden" value="<?php echo $vST ?>" name="valoricms">
                            </div>
                         </div>
                         <div class="col-3">
@@ -346,6 +409,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Vl Total dos Produtos</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vProd ?></span>
+                                 <input type="hidden" value="<?php echo $vProd ?>" name="totalproduto">
                            </div>
                         </div>
 
@@ -355,6 +419,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Valor do Frete</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vFrete ?></span>
+                                 <input type="hidden" value="<?php echo $vFrete ?>" name="frete">
                            </div>
 
                         </div>
@@ -365,6 +430,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Valor do Seguro</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vSeg  ?></span>
+                                 <input type="hidden" value="<?php echo $vSeg ?>" name="seguro">
                            </div>
                         </div>
                         <div class="col-2">
@@ -373,6 +439,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Desconto</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vDesc ?></span>
+                                 <input type="hidden" value="<?php echo $vDesc ?>" name="desconto">
                            </div>
                         </div>
                         <div class="col-2">
@@ -381,6 +448,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>Vl Total do IPI</label>
                               <p>
                                  <span class="amarelo">R$ <?php echo $vIPI ?></span>
+                                 <input type="hidden" value="<?php echo $vIPI  ?>" name="totalipi">
                            </div>
                         </div>
                         <div class="col-3">
@@ -389,6 +457,7 @@ $ocultar2='class="card-body caixa-alta "';
                               <label>VL Total da Nota</label>
                               <p>
                                  <span class="prod-verde">R$ <?php echo $vNF ?></span>
+                                 <input type="hidden" value="<?php echo $vNF  ?>" name="totalnota">
                            </div>
                         </div>
 
@@ -471,8 +540,6 @@ $ocultar2='class="card-body caixa-alta "';
 
                </div>
 
-
-
             </div>
             </form>
 
@@ -483,3 +550,5 @@ $ocultar2='class="card-body caixa-alta "';
    </div>
 
 </section>
+
+

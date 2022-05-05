@@ -12,7 +12,7 @@ $listar = "";
 
 Login::requireLogin();
 
-$listar = Cargo::getList('*','cargos',null, 'nome desc',null);
+$listar = Cargo::getList('*','cargos',null, 'descricao desc',null);
 
 
 include __DIR__ . '../../../includes/layout/header.php';

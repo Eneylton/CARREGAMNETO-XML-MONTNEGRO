@@ -98,6 +98,29 @@ $usuario = $usuariologado ?
             <p>Usuários</p>
           </a>
         </li>
+        <li class="<?php
+
+                    switch ($acesso) {
+                      case '2':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '3':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '4':
+                        echo "";
+                        break;
+
+                      default:
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                    }
+
+                    ?>" style="display: none;">
+          <a href="pages/categorias/categoria-list.php" class="nav-link">
+            <p>Categorias</p>
+          </a>
+        </li>
 
         <li class="<?php
 
@@ -106,7 +129,7 @@ $usuario = $usuariologado ?
                         echo "nav-item d-none d-sm-inline-block";
                         break;
                       case '3':
-                        echo "";
+                        echo "nav-item d-none d-sm-inline-block";
                         break;
                       case '4':
                         echo "";

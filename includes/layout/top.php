@@ -8,7 +8,7 @@ $acesso = $usuariologado['acessos_id'];
 
 $usuario = $usuariologado ?
 
-  '<a href="logout.php" class="nav-link"> <i class="fas fa-power-off" style="font-size:16px"></i></a>' :
+  '<a href="../../logout.php" class="nav-link"> <i class="fas fa-power-off" style="font-size:16px"></i></a>' :
   'Visitante: <a href="login.php" class="text-light font-weigth-bold ml-2">Entrar</a>'
 
 ?>
@@ -105,7 +105,30 @@ $usuario = $usuariologado ?
                         echo "nav-item d-none d-sm-inline-block";
                         break;
                       case '3':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '4':
                         echo "";
+                        break;
+
+                      default:
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                    }
+
+                    ?>" style="display: none;">
+          <a href="../../pages/categorias/categoria-list.php" class="nav-link">
+            <p>Categorias</p>
+          </a>
+        </li>
+        <li class="<?php
+
+                    switch ($acesso) {
+                      case '2':
+                        echo "nav-item d-none d-sm-inline-block";
+                        break;
+                      case '3':
+                        echo "nav-item d-none d-sm-inline-block";
                         break;
                       case '4':
                         echo "";

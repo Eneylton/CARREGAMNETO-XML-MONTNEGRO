@@ -352,6 +352,12 @@
   // DropzoneJS Demo Code End
 </script>
 
+<script>
+ $(document).on('shown.bs.modal', function (e) {
+        $('[autofocus]', e.target).focus();
+      });
+</script>
+
 </body>
 
 </html>

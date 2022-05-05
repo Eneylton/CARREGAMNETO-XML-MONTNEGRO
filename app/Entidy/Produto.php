@@ -9,19 +9,25 @@ use \PDO;
 class Produto
 {
 
-
     public $id;
-    public $codigo;
     public $data;
-    public $barra;
+    public $codigo;
     public $nome;
-    public $foto;
-    public $usuarios_id;
+    public $ncm;
+    public $cfop;
+    public $un;
     public $qtd;
+    public $valor_uni;
+    public $bc_icms;
+    public $valor_prod;
+    public $valor_icms;
+    public $valor_ipi;
+    public $icms;
+    public $ipi;
     public $categorias_id;
-    public $descricao;
-    public $valor_compra;
-    public $valor_venda;
+    public $notafiscal_id;
+
+   
 
    
 
@@ -34,19 +40,23 @@ class Produto
 
         $this->id = $obdataBase->insert([
 
-            'codigo'                  => $this->codigo,
-            'data'                    => $this->data,
-            'barra'                   => $this->barra,
-            'nome'                    => $this->nome,
-            'foto'                    => $this->foto,
-            'usuarios_id'             => $this->usuarios_id,
-            'qtd'                     => $this->qtd,
-            'categorias_id'           => $this->categorias_id,
-            'descricao'               => $this->descricao,
-            'valor_compra'            => $this->valor_compra,
-            'valor_venda'             => $this->valor_venda
+            'data'                   => $this->data,
+            'codigo'                 => $this->codigo,
+            'nome'                   => $this->nome,
+            'ncm'                    => $this->ncm,
+            'cfop'                   => $this->cfop,
+            'un'                     => $this->un,
+            'qtd'                    => $this->qtd,
+            'valor_uni'              => $this->valor_uni,
+            'bc_icms'                => $this->bc_icms,
+            'valor_prod'             => $this->valor_prod,
+            'valor_icms'             => $this->valor_icms,
+            'valor_ipi'              => $this->valor_ipi,
+            'icms'                   => $this->icms,
+            'ipi'                    => $this->ipi,
+            'categorias_id'          => $this->categorias_id,
+            'notafiscal_id'          => $this->notafiscal_id
           
-
         ]);
 
         return true;
@@ -57,17 +67,22 @@ class Produto
     {
         return (new Database('produtos'))->update('id = ' . $this->id, [
 
-            'codigo'                  => $this->codigo,
-            'data'                    => $this->data,
-            'barra'                   => $this->barra,
-            'nome'                    => $this->nome,
-            'foto'                    => $this->foto,
-            'usuarios_id'             => $this->usuarios_id,
-            'qtd'                     => $this->qtd,
-            'categorias_id'           => $this->categorias_id,
-            'descricao'               => $this->descricao,
-            'valor_compra'            => $this->valor_compra,
-            'valor_venda'             => $this->valor_venda
+            'data'                   => $this->data,
+            'codigo'                 => $this->codigo,
+            'nome'                   => $this->nome,
+            'ncm'                    => $this->ncm,
+            'cfop'                   => $this->cfop,
+            'un'                     => $this->un,
+            'qtd'                    => $this->qtd,
+            'valor_uni'              => $this->valor_uni,
+            'bc_icms'                => $this->bc_icms,
+            'valor_prod'             => $this->valor_prod,
+            'valor_icms'             => $this->valor_icms,
+            'valor_ipi'              => $this->valor_ipi,
+            'icms'                   => $this->icms,
+            'ipi'                    => $this->ipi,
+            'categorias_id'          => $this->categorias_id,
+            'notafiscal_id'          => $this->notafiscal_id
 
         ]);
     }
